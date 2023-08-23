@@ -21,6 +21,7 @@ class CreateUserRolesSeeder extends Seeder
         $this->teacherRole();
         $this->parentRole();
         $this->studentRole();
+        $this->userRole();
     }
     public function superAdminRole(){
         
@@ -75,6 +76,18 @@ class CreateUserRolesSeeder extends Seeder
         $user = User::where('email', 'student@email.com')->first();
       
         $role = Role::create(['name' => 'Student']);
+       
+        $permissions = Permission::pluck('id','id')->all();
+     
+        $role->syncPermissions($permissions);
+       
+        $user->assignRole([$role->id]);
+    }
+    public function userRole(){
+        
+        $user = User::where('email', 'user@email.com')->first();
+      
+        $role = Role::create(['name' => 'User']);
        
         $permissions = Permission::pluck('id','id')->all();
      

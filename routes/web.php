@@ -11,6 +11,7 @@ use App\Http\Controllers\DashboardHome\AdminController as HomeAdminController;
 use App\Http\Controllers\DashboardHome\TeacherController as HomeTeacherController;
 use App\Http\Controllers\DashboardHome\ParentController as HomeParentController;
 use App\Http\Controllers\DashboardHome\StudentController as HomeStudentController;
+use App\Http\Controllers\ParentsController;
 use App\Http\Controllers\TeachersController;
 
 /*
@@ -59,7 +60,8 @@ Route::group(['prefix' => 'super-admin','middleware'=> ['auth','role:Super Admin
 Route::group(['prefix' => 'admin','middleware'=> ['auth', 'role:Admin'], 'as' =>'admin.'], function () {
     // home page
     Route::get('home', [HomeAdminController::class, 'home'])->name('home');
-    Route::resource('teachers', TeachersController::class);;
+    Route::resource('teachers', TeachersController::class);
+    Route::resource('parents', ParentsController::class);
 
 });
 

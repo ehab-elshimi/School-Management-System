@@ -13,4 +13,5 @@ class TeacherService extends BaseServices
     {
         $this->model = new Teacher();
     }
+
 }

@@ -5,7 +5,6 @@ namespace App\Repos;
 use App\Models\Teacher;
 use App\Services\TeacherService;
 use App\Traits\HttpResponses;
-use Symfony\Component\HttpFoundation\Response;
 
 class TeachersRepo
 {   
@@ -22,37 +21,59 @@ class TeachersRepo
         $this->teacherService = $teacherService;
     }
     // List
+    public function index()
+    {
+        
+        $teachers = $this->teacherService->retrieve(false ,$this->model);
+        $countTeachers = $teachers->count();
+        // return $this->success(['teachers' => $teachers], "Successfully Retrieved Teachers", 200);
+        return view('dashboards.admins.pages.teachers.index', compact('teachers', 'countTeachers'));
+    }
     public function getTeachers()
     {
-        $teachers = $this->teacherService->retrieve(false);
-
-        return $teachers;
+        $teachers = $this->teacherService->retrieve(false ,$this->model);
+        $countTeachers = $teachers->count();
+        return $this->success(['teachers' => $teachers], "Successfully Retrieved Teachers", 200);
+    }
+    
+    // Create
+    public function create()
+    {
+        return view('dashboards.admins.pages.teachers.create');
     }
     // Store
-    public function storeTeacher($request)
+    public function store($data)
     {
-        return response(Response::HTTP_OK);
+        $storeTeacher = $this->teacherService->store($this->model, $data);
+        return $this->success($storeTeacher, "Teacher Stored Successfully", 200);
     }
     // Show
-    public function getTeacher($teacherId)
+    public function show($teacherId)
     {
-        $teacher = $this->teacherService->show($teacherId);
-
-        return $teacher;
+        $teacher = $this->teacherService->show($this->model, $teacherId);
+        return $this->success(["teacher" => $teacher], "Teacher Retrieved Successfully", 200);
+        // return view('dashboards.admins.pages.teachers.show', compact('teacher'));
+    }
+    // Show
+    public function edit($teacherId)
+    {
+        $teacher = $this->teacherService->show($this->model, $teacherId);
+        return $this->success(["teacher" => $teacher], "Teacher Retrieved Successfully", 200);
+        // return view('dashboards.admins.pages.teachers.edit', compact('teacher'));
     }
     // Update
-    public function updateTeacher($teacherId, $request)
+    public function update($teacherId, $data)
     {
-        $teacher = $this->teacherService->show($teacherId);
-
-        $teacherData = $request->json()->all();
-        $teacher->update($teacherData);
-
-        return $teacher;
+        $teacher = $this->teacherService->update($this->model, $teacherId, $data);
+        return $this->success(["teacher" => $teacher], "Teacher Updated Successfully", 200);
+        // return redirect()->route('admin.teachers.index')->with("success", "Teacher Updated Successfully");
     }
     // Delete
-    public function deleteTeacher($teacherId)
+    public function destroy($teacherId)
     {
-        return response(Response::HTTP_OK);
+        $this->teacherService->delete($this->model, $teacherId);
+        // return $this->success(null, "Teacher Deleted Successfully", 200);
+        return redirect()->route('admin.teachers.index')->with("success", "Teacher Updated Successfully");
     }
+
 }

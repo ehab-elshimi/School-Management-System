@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -25,13 +26,13 @@ class TeacherRequest extends FormRequest
         return [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'dob' => 'required|date',
+            'dob' => 'required|date_format:Y-m-d',
+            'dob' => 'required',
             'gender' => [
                 'required',
                 Rule::in(['male', 'female', 'other']),
             ],
             'phone_number' => 'required|string|max:15',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
     /**
@@ -48,4 +49,14 @@ class TeacherRequest extends FormRequest
             'photo.max' => 'The photo size must not exceed 2 MB.',
         ];
     }
+    protected function prepareForValidation()
+    {
+        // Convert the "dob" field to a Carbon instance
+        if ($this->has('dob')) {
+            $this->merge([
+                'dob' => Carbon::createFromFormat('d/m/Y', $this->input('dob'))->format('Y-m-d')
+            ]);
+        }
+    }
+    
 }

@@ -7,37 +7,50 @@ use Illuminate\Database\Eloquent\Model;
 abstract class BaseServices
 {
     protected $model;
+
+    private function model($model): Model
+    {
+        return new $model;
+    }
     /**
      * Retrieve all records.
      *
      * @return \Illuminate\Support\Collection
      */
-    public function retrieve($paginated = true)
+    public function retrieve($paginated = true, $model)
     {
         return $paginated ? $this->model->paginate() : $this->model->get();
     }
+    // public function retrieve($model)
+    // {
+    //     return $this->model($model)->paginate();
+    // }
 
     /**
      * Create a new record.
+     * @param model $model
      * @param array $data
      * @return Model
      */
-    public function store(array $data)
+    public function store($model, array $data)
     {
-        return $this->model->create($data);
+        return $this->model($model)->create($data);
     }
 
     /**
      * Update an existing record.
+     * @param model $model
      * @param array $data
      * @param int $id
      * @return Model
      */
-    public function update(int $id, array $data)
+    public function update($model, int $id, array $data)
     {
-        $model = $this->model->findOrFail($id);
-        $model->update($data);
-        return $model;
+        $category = $this->model($model)->findOrFail($id);
+
+        $category->update($data);
+
+        return $category;
     }
 
     /**
@@ -46,18 +59,19 @@ abstract class BaseServices
      * @param int $id
      * @return Model
      */
-    public function show($id)
+    public function show($model, $id)
     {
-        return $this->model->findOrFail($id);
+        return $this->model($model)->findOrFail($id);
     }
 
     /**
      * Delete a record by ID.
+     * @param model $model
      * @param int $id
      * @return bool
      */
-    public function delete($id)
+    public function delete($model, $id)
     {
-        $this->model->findOrFail($id)->delete();
+        $this->model($model)->findOrFail($id)->delete();
     }
 }

@@ -76,7 +76,7 @@
               </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('super-admin.users.index')}}" class="nav-link">
+            <a href="{{route('admin.parents.create')}}" class="nav-link">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
                     Parents

@@ -21,9 +21,8 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('dashboards.super-admins.pages.roles-permissions.users.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 5);
+        $data = User::orderBy('id','ASC')->get();
+        return view('dashboards.super-admins.pages.roles-permissions.users.index',compact('data'));
     }
     
     /**

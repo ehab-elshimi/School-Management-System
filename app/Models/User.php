@@ -18,11 +18,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['email','password','fname', 'lname', 'gender','dob','photo'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -42,4 +38,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    // Users Phones Relationship
+    public function phones()
+    {
+        return $this->belongsToMany(Phone::class, 'user_phones');
+    }
 }

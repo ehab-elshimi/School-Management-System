@@ -2,20 +2,20 @@
 
 namespace Database\Seeders;
 
-use App\Models\Teacher;
+use App\Models\ParentData;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class TeachersTableSeeder extends Seeder
+class ParentDataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('teachers')->truncate();
+        DB::table('parent_data')->truncate();
 
-        Teacher::factory(60)->create();
+        ParentData::factory(60)->create();
     }
 }
