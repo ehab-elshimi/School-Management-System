@@ -27,6 +27,23 @@ public function uploadFile(Request $request, $fieldName, $storagePath)
     return $imagePath;
 }
 
+public function uploadImage($request, $fieldName, $storagePath)
+{
+    if ($request) {
+        $uploadedFile = $request["$fieldName"];
+        $storedFileName = time() . '_' . $uploadedFile->getClientOriginalName();
     
+        // Use the storeAs method to save the file with a custom name
+        $imagePath = $uploadedFile->storeAs(
+            $storagePath,
+            $storedFileName,
+            ['disk' => 'public']
+        );
+    } else {
+        $imagePath = null;
+    }
+    
+    return $imagePath;
+}
 
 }

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Classroom;
+use App\Models\Subject;
 use Database\Factories\ParentDataFactory;
 use Illuminate\Database\Seeder;
 
@@ -20,6 +22,9 @@ class DatabaseSeeder extends Seeder
             CreateUserRolesSeeder::class,
             TeachersSeeder::class,
             ParentDataSeeder::class,
+            ClassroomSeeder::class,
+            SubjectSeeder::class,
+            StudentSeeder::class
         ]); 
     }
 }

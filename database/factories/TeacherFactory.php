@@ -3,7 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Teacher>
@@ -14,14 +16,12 @@ class TeacherFactory extends Factory
 
     public function definition(): array
     {
-        $phone = preg_replace('/[^0-9]/', '', $this->faker->phoneNumber);
+        $userIds = User::pluck('id'); // Get all user IDs
 
         return [
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'dob' => $this->faker->date,
-            'gender' => $this->faker->randomElement(['male', 'female', 'other']),
-            'phone_number' => $phone,
+            'teacher_code' => Str::upper($this->faker->unique()->bothify('??##')),
+            'address' => $this->faker->address,
+            'user_id' => $this->faker->randomElement($userIds),
         ];
     }
 }

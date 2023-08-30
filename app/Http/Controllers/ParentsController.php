@@ -2,25 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ParentRequest;
-use App\Models\ParentData;
-use App\Models\Phone;
-use App\Models\User;
+use App\Http\Requests\ParentDataRequest;
 use App\Repos\ParentsRepo;
-use App\Traits\FileUploadTrait;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class ParentsController extends Controller
 {
-
     protected ParentsRepo $parentsRepo;
 
     public function __construct(ParentsRepo $parentsRepo)
     {
         $this->parentsRepo = $parentsRepo;
     }
-
     public function index()
     {
         return $this->parentsRepo->index();
@@ -29,12 +22,14 @@ class ParentsController extends Controller
     {
         return $this->parentsRepo->create();
     }
-    
-    public function store(ParentRequest $request)
+    public function store(ParentDataRequest $request)
     {
-        return $this->parentsRepo->store($request);
+        try {
+            return $this->parentsRepo->store( $request);
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
-
     public function show(string $id)
     {
         return $this->parentsRepo->show($id);
@@ -43,18 +38,16 @@ class ParentsController extends Controller
     {
         return $this->parentsRepo->edit($id);
     }
-    public function update(ParentRequest $request, string $id)
+    public function update(ParentDataRequest $request, string $id)
     {
-        $validation = $request->validated();
-
-        return $this->parentsRepo->update($id, $request->toArray());
+        try {
+            return $this->parentsRepo->update($id, $request);
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
     public function destroy(string $id)
     {
         return $this->parentsRepo->destroy($id);
-    }
-    public function getParents()
-    {
-        return $this->parentsRepo->getParents();
     }
 }

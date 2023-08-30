@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClassroomsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\DashboardHome\TeacherController as HomeTeacherControlle
 use App\Http\Controllers\DashboardHome\ParentController as HomeParentController;
 use App\Http\Controllers\DashboardHome\StudentController as HomeStudentController;
 use App\Http\Controllers\ParentsController;
+use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\SubjectsController;
 use App\Http\Controllers\TeachersController;
 
 /*
@@ -62,6 +65,9 @@ Route::group(['prefix' => 'admin','middleware'=> ['auth', 'role:Admin'], 'as' =>
     Route::get('home', [HomeAdminController::class, 'home'])->name('home');
     Route::resource('teachers', TeachersController::class);
     Route::resource('parents', ParentsController::class);
+    Route::resource('students', StudentsController::class);
+    Route::resource('classrooms', ClassroomsController::class);
+    Route::resource('subjects', SubjectsController::class);
 
 });
 

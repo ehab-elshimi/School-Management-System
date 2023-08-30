@@ -67,7 +67,7 @@
               </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('super-admin.users.index')}}" class="nav-link">
+            <a href="{{route('admin.students.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
                     Students
@@ -76,7 +76,7 @@
               </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('admin.parents.create')}}" class="nav-link">
+            <a href="{{route('admin.parents.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
                     Parents
@@ -85,7 +85,7 @@
               </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('super-admin.users.index')}}" class="nav-link">
+            <a href="{{route('admin.subjects.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
                     Subjects
@@ -94,15 +94,15 @@
               </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('super-admin.users.index')}}" class="nav-link">
+            <a href="{{route('admin.classrooms.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
-                    Classes
+                    Class Rooms
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{route('super-admin.users.index')}}" class="nav-link">
                 <i class="nav-icon fas fa-chalkboard-teacher"></i>
                 <p>
@@ -110,7 +110,7 @@
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
-          </li>
+          </li> --}}
           @endif
           <li class="nav-item">
             <a href="{{route('logout')}}" class="nav-link">

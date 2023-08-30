@@ -4,158 +4,144 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Teachers Page</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Blank Page</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Teachers</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
     </section>
-    {{-- <style>
-      .json-output {
-          background-color: #f7f7f7;
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-          font-family: 'Courier New', monospace;
-          white-space: pre-wrap;
-      }
-  </style>
-  
-  <div class="json-output">
-    {{ "Teachers Count => " . json_encode($countTeachers, JSON_PRETTY_PRINT) }}
-    {{ "Teachers => " . json_encode($teachers, JSON_PRETTY_PRINT) }}
-</div> --}}
-<!-- Main content -->
-<section class="content">
-    <div class="row">
-        <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-info"><i class="fa-solid fa-person-chalkboard"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text font-weight-bold">All Teachers</span>
-                    <span class="info-box-number">{{$countTeachers}}</span>
-                </div>
-                <!-- /.info-box-content -->
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 col-12">
+
+          <div class="info-box border border-info">
+            <span class="info-box-icon bg-info"><i class="fa-solid fa-person-chalkboard"></i></span>
+
+            <div class="info-box-content">
+              <span class="info-box-text font-weight-bold" style="font-size: 18px;">Teachers</span>
+              <span class="info-box-number" style="font-size: 17px;">60</span>
             </div>
-            <!-- /.info-box -->
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
         </div>
         <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-info"><a href="{{route('admin.teachers.create')}}"><i class="fa-solid fa-user-plus"></i></a></span>
 
-                <div class="info-box-content">
-                    <a href="{{route('admin.teachers.create')}}"><span class="info-box-text font-weight-bold">Add New Teacher</span></a>
-                </div>
-                <!-- /.info-box-content -->
+            <div class="info-box border border-info">
+              <span class="info-box-icon bg-info"><i class="fa-solid fa-user-plus"></i></span>
+
+              <div class="info-box-content">
+                <a href="{{route('admin.teachers.create')}}" class="text-dark">
+                  <span class="info-box-text font-weight-bold m-0 add_teacher" style="font-size: 17px;">+ Add New Teacher</span>
+                </a>
+              </div>
+              <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box -->
+          <!-- /.info-box -->
         </div>
-        <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-                {{-- <span class="info-box-icon bg-info"><a href="{{route('api-get-teachers')}}"><i class="fa-solid fa-users"></i></a></span> --}}
-
-                <div class="info-box-content">
-                    <button id="btnData" onclick="getData('{{route('api-get-teachers')}}')" data-url="{{route('api-get-teachers')}}"><span class="info-box-text font-weight-bold">Get Teachers</span></button>
-                </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-    </div>
+      </div>
 
 
-    <div class="card">
-        <div class="card-header d-flex justify-content-between w-100">
-            <h3 class="card-title">All Teachers In School</h3>
+      <div class="card">
+        <div class="card-header text-light" style="background-color: #3c8ab8;">
+          <h3 class="card-title">All Teachers In the School</h3>
         </div>
         <!-- /.card-header -->
-
-
         <div class="card-body">
-            <table id="example1 teachersDataTable" class="table table-bordered table-striped text-center">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>BirthDate</th>
-                        <th>Gender</th>
-                        <th>Phone</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="tblBody">
-                    @foreach ($teachers as $teacher)
-                    <tr class="font-weight-bold">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $teacher->first_name }}</td>
-                        <td>{{ $teacher->last_name }}</td>
-                        <td>{{ $teacher->dob }}</td>
-                        <td>{{ $teacher->gender }}</td>
-                        <td>{{ $teacher->phone_number }}</td>
-                        <td>
-                            {{-- <a class="btn btn-success" href="{{ route('admin.teachers.show', ['teacher' => $teacher->id]) }}">
-                            <i class="fas fa-eye"></i> Show
-                            </a> --}}
-                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-xl">
-                                <i class="fas fa-eye"></i> Show
-                            </button>
-                            <a class="btn btn-primary" href="{{ route('admin.teachers.edit', ['teacher' => $teacher->id]) }}">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <a class="btn btn-danger" href="{{ route('admin.teachers.destroy', ['teacher' => $teacher->id]) }}" onclick="event.preventDefault(); document.getElementById('delete-teacher-{{ $teacher->id }}').submit();">
-                                <i class="fas fa-trash"></i> Delete
-                            </a>
-                            <form id="delete-teacher-{{ $teacher->id }}" action="{{ route('admin.teachers.destroy', ['teacher' => $teacher->id]) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+          <table id="example1" class="table table-bordered table-striped text-center">
+            <thead>
+              <tr class="bg-info">
+                <th>N</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>BirthDate</th>
+                <th>Gender</th>
+                <th>Phone</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="font-weight-bold">
+                <td>1</td>
+                <td>Mahmod Kamel</td>
+                <td>email@gamil.com</td>
+                <td>12/2/2023</td>
+                <td>Male</td>
+                <td>01202153654</td>
+                <td>
+                    <a class="btn btn-success" href="{{route('admin.teachers.show', 1)}}">
+                      <i class="fas fa-eye"></i> Show
+                    </a>
+                    <a class="btn btn-primary" href="{{route('admin.teachers.edit', 1)}}">
+                      <i class="fas fa-edit"></i> Edit
+                    </a>
+                    
+                    <a class="btn btn-danger" href="{{ route('admin.teachers.destroy', 1) }}" onclick="event.preventDefault(); document.getElementById('delete-teacher').submit();">
+                      <i class="fas fa-trash"></i> Delete
+                  </a>
+                  <form id="delete-teacher" action="{{ route('admin.teachers.destroy', 1) }}" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                  </form>
+                  </td>
+              </tr>
+              <tr class="font-weight-bold">
+                <td>2</td>
+                <td>Sara Kamel</td>
+                <td>sds@gamil.com</td>
+                <td>22/5/2023</td>
+                <td>female</td>
+                <td>01202153215</td>
+                <td>
+                    <a class="btn btn-success" href="{{route('admin.teachers.show', 1)}}">
+                      <i class="fas fa-eye"></i> Show
+                    </a>
+                    <a class="btn btn-primary" href="{{route('admin.teachers.edit', 1)}}">
+                      <i class="fas fa-edit"></i> Edit
+                    </a>
+                    
+                    <a class="btn btn-danger" href="{{ route('admin.teachers.destroy', 1) }}" onclick="event.preventDefault(); document.getElementById('delete-teacher').submit();">
+                      <i class="fas fa-trash"></i> Delete
+                  </a>
+                  <form id="delete-teacher" action="{{ route('admin.teachers.destroy', 1) }}" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                  </form>
+                  </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <!-- /.card-body -->
-        <div class="modal fade" id="modal-xl">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Teacher Name</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>One fine body&hellip;</p>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.card -->
+      </div>
+      <!-- /.card -->
 
-</section>
-<!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 @push('styles')
 <!-- DataTables -->
 <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
-
+<style>
+    .std_btn:hover {
+      background-color: #0055aa !important;
+      transition: all .4s ease 0s;
+    }
+    .add_teacher:hover {
+    color: #0055aa !important;
+    transition: all .4s ease 0s;
+    }
+</style>
 @endpush
 @push('scripts')
 <!-- jQuery -->

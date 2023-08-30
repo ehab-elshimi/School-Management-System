@@ -19,19 +19,4 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-    <style>
-        .json-output {
-            background-color: #f7f7f7;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-        }
-    </style>
-    
-    <div class="json-output">
-        {{ json_encode($teacher, JSON_PRETTY_PRINT) }}
-    </div>
-  </div>
 @endsection

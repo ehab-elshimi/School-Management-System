@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TeacherRequest;
 use App\Repos\TeachersRepo;
+use Illuminate\Validation\ValidationException;
 
 class TeachersController extends Controller
 {
@@ -24,9 +25,11 @@ class TeachersController extends Controller
     }
     public function store(TeacherRequest $request)
     {
-        $validation = $request->validated();
-
-        return $this->teachersRepo->store($request->toArray());
+        try {
+            return $this->teachersRepo->store($request);
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
     public function show(string $id)
     {
@@ -38,16 +41,14 @@ class TeachersController extends Controller
     }
     public function update(TeacherRequest $request, string $id)
     {
-        $validation = $request->validated();
-
-        return $this->teachersRepo->update($id, $request->toArray());
+        try {
+            return $this->teachersRepo->update($id, $request);
+        } catch (ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
     public function destroy(string $id)
     {
         return $this->teachersRepo->destroy($id);
-    }
-    public function getTeachers()
-    {
-        return $this->teachersRepo->getTeachers();
     }
 }
